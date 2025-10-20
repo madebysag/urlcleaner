@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>URL CLeaner</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.container {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			padding: 5rem;
+		}
+
+		textarea#url {
+			margin: 2rem 0 1rem;
+			width: 70vw;
+			height: 50vh;
+			font: 600 1.2rem serif;
+		}
+
+		button, button#cleanUrl {
+			padding: 10px 20px;
+			margin: 0 1rem;
+			border: none;
+			color: white;
+			font: 600 1rem sans-serif;
+			background: black;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		button#copyBtn,  button#clear {
+			background: transparent;
+			color: black;
+			border: black 2px solid;
+		}
+
+		div#cleanedUrl {
+			padding: 2rem 0 5rem;
+		}
+
+
+
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h2>URL Cleaner</h2>
+		<textarea name="url" id="url" placeholder="Enter or Paste URLs here..."></textarea>
+		<div class="btnContainer">
+			<button id="clear" onclick="ClearField()">Clear Text Field</button>
+			<button id="cleanUrl" onclick="CleanUrl()">Clean URLs</button>
+		</div>
+		<div id="cleanedUrl"></div>
+		<button id="copyBtn" >Copy Clean Urls</button>
+	</div>
+
+
+	<script>
+		const cleanBtn = document.getElementById("cleanUrl")
+		const copyBtn = document.getElementById("copyBtn")
+		const inputUrlContainer = document.getElementById("url")
+		const outputUrlContainer = document.getElementById("cleanedUrl")
+
+		const pattern = /([A-Za-z0-9?])+\.((com)|(org))/g
+
+		copyBtn.addEventListener("click", function () {
+			copyToClipboard(outputUrlContainer.innerText)
+		})
+
+
+
+		function CleanUrl () {
+			const text = inputUrlContainer.value;
+
+			const result = text.match(pattern)
+			
+			outputUrlContainer.innerText = result ? result.join("\n") : ""
+		}
+
+		function ClearField () {
+
+			inputUrlContainer.value = ""
+		}
+
+		async function copyToClipboard(textToCopy) {
+		  try {
+		    await navigator.clipboard.writeText(textToCopy);
+		    alert('Text copied');
+		  } catch (err) {
+		    alert('Failed to copy text:', err);
+		  }
+		}
+	</script>
+</body>
+</html>
