@@ -10,6 +10,23 @@
 			padding: 0;
 			box-sizing: border-box;
 		}
+
+		div#alert {
+			display: none;
+			position: fixed;
+			top: 3rem;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			border: 1px dotted black;
+			padding: 10px 20px;
+			animation: alert .2s ease-in;
+		}
+
+		@keyframes alert {
+			0% {transform: translate(-50%, -30%);}
+			100% {transform: translate(-50%, -50%);}
+		}
+
 		.container {
 			display: flex;
 			align-items: center;
@@ -24,6 +41,8 @@
 			height: 50vh;
 			font: 600 1.2rem serif;
 			padding: 10px;
+			border-radius: 10px;
+			border: grey 2px solid;
 		}
 
 		button, button#cleanUrl {
@@ -44,6 +63,7 @@
 
 		div#cleanedUrl {
 			padding: 2rem 0 5rem;
+			text-align: center;
 		}
 		.btnContainer {
 			text-align: center;
@@ -55,6 +75,7 @@
 </head>
 <body>
 	<div class="container">
+		<div id="alert">URLs Copied &hearts;&heartsuit;</div>
 		<h2>URL Cleaner</h2>
 		<textarea name="url" id="url" placeholder="Enter or Paste URLs here..."></textarea>
 		<div class="btnContainer">
@@ -69,10 +90,11 @@
 	<script>
 		const cleanBtn = document.getElementById("cleanUrl")
 		const copyBtn = document.getElementById("copyBtn")
+		const copyAlertContainer = document.getElementById("alert")
 		const inputUrlContainer = document.getElementById("url")
 		const outputUrlContainer = document.getElementById("cleanedUrl")
 
-		const pattern = /([A-Za-z0-9?])+\.((com)|(org))/g
+		const pattern = /([A-Za-z0-9?\-?])+\.((com)|(org))/g
 
 		copyBtn.addEventListener("click", function () {
 			copyToClipboard(outputUrlContainer.innerText)
@@ -93,10 +115,18 @@
 			inputUrlContainer.value = ""
 		}
 
+		function copyAlert () {
+			copyAlertContainer.style.display = "block"
+
+			setTimeout(function() {
+			copyAlertContainer.style.display = "none"
+			}, 2000);
+		}
+
 		async function copyToClipboard(textToCopy) {
 		  try {
 		    await navigator.clipboard.writeText(textToCopy);
-		    alert('Text copied');
+		    copyAlert();
 		  } catch (err) {
 		    alert('Failed to copy text:', err);
 		  }
