@@ -95,7 +95,7 @@
 		const inputUrlContainer = document.getElementById("url")
 		const outputUrlContainer = document.getElementById("cleanedUrl")
 
-		const pattern = /([A-Za-z0-9?\-?])+\.((com)|(org)|(net)|(ca)|(us))/g
+		const pattern = /([A-Za-z0-9?\-?])+\.((com)|(org)|(net))/g
 
 		copyBtn.addEventListener("click", function () {
 			copyToClipboard(outputUrlContainer.innerText)
