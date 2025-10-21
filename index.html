@@ -20,6 +20,7 @@
 			border: 1px dotted black;
 			padding: 10px 20px;
 			animation: alert .2s ease-in;
+			background: white;
 		}
 
 		@keyframes alert {
@@ -107,8 +108,10 @@
 			const text = inputUrlContainer.value;
 
 			const result = text.match(pattern)
+
+			const finalResult = result ? new Set(result) : ["Nothing ", "to ", "copy ", " (-_-)"]
 			
-			outputUrlContainer.innerText = result ? result.join("\n") : ""
+			outputUrlContainer.innerText = Array.from(finalResult).join("\n")
 		}
 
 		function ClearField () {
