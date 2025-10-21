@@ -54,11 +54,12 @@
 			background: black;
 			border-radius: 5px;
 			cursor: pointer;
+			border: black 2px solid;
 		}
+		
 		button#copyBtn,  button#clear {
 			background: transparent;
 			color: black;
-			border: black 2px solid;
 		}
 
 		div#cleanedUrl {
@@ -94,7 +95,7 @@
 		const inputUrlContainer = document.getElementById("url")
 		const outputUrlContainer = document.getElementById("cleanedUrl")
 
-		const pattern = /([A-Za-z0-9?\-?])+\.((com)|(org))/g
+		const pattern = /([A-Za-z0-9?\-?])+\.((com)|(org)|(net)|(ca)|(us))/g
 
 		copyBtn.addEventListener("click", function () {
 			copyToClipboard(outputUrlContainer.innerText)
